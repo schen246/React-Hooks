@@ -1,25 +1,39 @@
-import logo from './logo.svg';
-import './App.css';
+import React from 'react';
 
-function App() {
+const App = () => (
+  <Amount
+    myChildren = {amount => (
+      <div>
+        <Pound amount={amount} />
+        <Euro amount={amount} />
+      </div>
+    )}
+  />
+);
+
+const Amount = ({myChildren}) => {
+  const [amount, setAmount] = React.useState(0);
+
+  const handleIncrement = () => {
+    setAmount(amount + 1);
+  };
+
+  const handleDecrement = () => {
+    setAmount(amount - 1);
+  }
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <span>US Dollar: {amount}</span>
+      <button type="button" onClick={handleIncrement}>+</button>
+      <button type="button" onClick={handleDecrement}>-</button>
+      {myChildren(amount)}
     </div>
   );
-}
+};
+
+const Pound = ({amount}) => <p>Pound: {amount * 0.76}</p>;
+
+const Euro = ({amount}) => <p>Euro: {amount * 0.86}</p>;
 
 export default App;
